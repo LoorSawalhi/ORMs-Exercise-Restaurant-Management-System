@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices.JavaScript;
-
 namespace RestaurantReservation.Db.Models;
 
 public class Reservation
@@ -11,6 +9,8 @@ public class Reservation
     public int CustomerId { get; set; }
     public List<Order> Orders { get; set; }
     public Table Table { get; set; }
+    public int TableId { get; set; }
+
     public Restaurant Restaurant { get; set; }
     public int RestaurantId { get; set; }
 }
