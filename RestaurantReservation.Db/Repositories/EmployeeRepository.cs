@@ -28,6 +28,16 @@ public class EmployeeRepository : IEmployeeRepository
             .ToListAsync();
     }
 
+    public async Task<decimal> CalculateAverageOrderAmount(int employeeId)
+    {
+        return await _context.Employees
+            .Where(e => e.Id == employeeId)
+            .Include(e => e.Orders)
+            .SelectMany(e => e.Orders)
+            .Select(o => o.TotalAmount)
+            .SumAsync();
+    }
+
     public async Task<Employee> GetEmployeeByIdAsync(int id)
     {
         return await _context.Employees

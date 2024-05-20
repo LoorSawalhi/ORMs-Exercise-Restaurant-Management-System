@@ -9,5 +9,6 @@ public interface IEmployeeRepository
     Task<IEnumerable<Employee>> GetAllEmployeesAsync();
     Task AddEmployeeAsync(Employee employee);
     Task UpdateEmployeeAsync(Employee employee);
-    public Task<List<EmployeeDto>> ListEmployeesByPositionAsync(string position);
+    Task<List<EmployeeDto>> ListEmployeesByPositionAsync(string position);
+    Task<decimal> CalculateAverageOrderAmount(int employeeId);
 }

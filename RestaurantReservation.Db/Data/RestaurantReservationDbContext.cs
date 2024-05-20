@@ -13,6 +13,7 @@ public class RestaurantReservationDbContext : DbContext
     public DbSet<Employee> Employees { get; set; }
     public DbSet<MenuItem> MenuItems { get; set; }
     public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
     public DbSet<Reservation> Reservations { get; set; }
     public DbSet<Restaurant> Restaurants { get; set; }
     public DbSet<Table> Tables { get; set; }
@@ -20,22 +21,6 @@ public class RestaurantReservationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         SeedData(modelBuilder);
-        modelBuilder.Entity<Order>()
-            .HasMany(o => o.Items)
-            .WithMany(m => m.Orders)
-            .UsingEntity<OrderItem>(
-                join => join
-                    .HasOne<MenuItem>()
-                    .WithMany()
-                    .HasForeignKey(oi => oi.MenuItemId),
-                join => join
-                    .HasOne<Order>()
-                    .WithMany()
-                    .HasForeignKey(oi => oi.OrderId));
-        modelBuilder.Entity<OrderItem>()
-            .Property(ca => ca.OrderId).HasColumnName("OrdersOrderId");
-        modelBuilder.Entity<OrderItem>()
-            .Property(ca => ca.MenuItemId).HasColumnName("ItemsItemId");
 
         modelBuilder.Entity<Table>()
             .HasMany(t => t.Reservations)
@@ -73,6 +58,16 @@ public class RestaurantReservationDbContext : DbContext
             .HasForeignKey("RestaurantId").OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<MenuItem>()
+            .HasMany(m => m.Items)
+            .WithOne(i => i.MenuItem)
+            .HasForeignKey("MenuItemId").OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Order>()
+            .HasMany(o => o.Items)
+            .WithOne(oi => oi.Order)
+            .HasForeignKey("OrderId").OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<MenuItem>()
             .Property(m => m.Price)
             .HasPrecision(18, 2);
 
@@ -81,7 +76,7 @@ public class RestaurantReservationDbContext : DbContext
             .HasPrecision(18, 2);
     }
 
-        private static void SeedData(ModelBuilder modelBuilder)
+   private static void SeedData(ModelBuilder modelBuilder)
     {
                var restaurants = new List<Restaurant>
         {
@@ -248,6 +243,30 @@ public class RestaurantReservationDbContext : DbContext
             }
         };
 
+        var orderItems = new List<OrderItem>
+        {
+            new()
+            {
+                Id = 1, Quantity = 3, OrderId = 1, MenuItemId = 1
+            },
+            new()
+            {
+                Id = 2, Quantity = 4, OrderId = 5, MenuItemId = 4
+            },
+            new()
+            {
+                Id = 3, Quantity = 5, OrderId = 4, MenuItemId = 2
+            },
+            new()
+            {
+                Id = 4, Quantity = 5, OrderId = 3, MenuItemId = 5
+            },
+            new()
+            {
+                Id = 5, Quantity = 2, OrderId = 2, MenuItemId = 3
+            }
+        };
+
         modelBuilder.Entity<Restaurant>().HasData(restaurants);
         modelBuilder.Entity<Customer>().HasData(customers);
         modelBuilder.Entity<Reservation>().HasData(reservations);
@@ -255,5 +274,6 @@ public class RestaurantReservationDbContext : DbContext
         modelBuilder.Entity<Employee>().HasData(employees);
         modelBuilder.Entity<MenuItem>().HasData(menuItems);
         modelBuilder.Entity<Order>().HasData(orders);
+        modelBuilder.Entity<OrderItem>().HasData(orderItems);
     }
 }
