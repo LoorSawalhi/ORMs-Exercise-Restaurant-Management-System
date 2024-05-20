@@ -11,4 +11,5 @@ public interface IEmployeeRepository
     Task UpdateEmployeeAsync(Employee employee);
     Task<List<EmployeeDto>> ListEmployeesByPositionAsync(string position);
     Task<decimal> CalculateAverageOrderAmount(int employeeId);
+    Task<List<EmployeesView>> GetEmployeesDetailedData();
 }

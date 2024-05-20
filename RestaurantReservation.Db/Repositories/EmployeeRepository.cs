@@ -38,6 +38,12 @@ public class EmployeeRepository : IEmployeeRepository
             .SumAsync();
     }
 
+    public async Task<List<EmployeesView>> GetEmployeesDetailedData()
+    {
+        return await _context.EmployeesView
+            .ToListAsync();
+    }
+
     public async Task<Employee> GetEmployeeByIdAsync(int id)
     {
         return await _context.Employees
