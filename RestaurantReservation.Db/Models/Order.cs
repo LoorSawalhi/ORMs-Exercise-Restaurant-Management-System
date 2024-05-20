@@ -11,5 +11,5 @@ public class Order
     public int ReservationId { get; set; }
     public Employee Employee { get; set; }
     public int EmployeeId { get; set; }
-    public List<MenuItem> Items { get; set; }
+    public List<OrderItem> Items { get; set; }
 }
