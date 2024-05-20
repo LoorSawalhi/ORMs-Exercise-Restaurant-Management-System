@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db.Data;
 using RestaurantReservation.Db.IRepository;
 using RestaurantReservation.Db.Models;
+using RestaurantReservation.Db.ModelsDto;
 
 namespace RestaurantReservation.Db.Repositories;
 
@@ -14,14 +15,23 @@ public class EmployeeRepository : IEmployeeRepository
         _context = context;
     }
 
-    public Task<List<Employee>> ListEmployeesByPositionAsync(string position)
+    public Task<List<EmployeeDto>> ListEmployeesByPositionAsync(string position)
     {
-        return _context.Employees.Where(m => m.Position.Equals(position)).ToListAsync();
+        return _context.Employees
+            .Where(m => m.Position.Equals(position))
+            .Select(e => new EmployeeDto(
+                e.Id,
+                e.FirstName,
+                e.LastName,
+                e.Position
+                ))
+            .ToListAsync();
     }
 
     public async Task<Employee> GetEmployeeByIdAsync(int id)
     {
-        return await _context.Employees.FirstOrDefaultAsync(e => e.Id == id);
+        return await _context.Employees
+            .FirstOrDefaultAsync(e => e.Id == id);
     }
 
     public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()

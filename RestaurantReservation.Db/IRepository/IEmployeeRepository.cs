@@ -1,4 +1,5 @@
 using RestaurantReservation.Db.Models;
+using RestaurantReservation.Db.ModelsDto;
 
 namespace RestaurantReservation.Db.IRepository;
 
@@ -8,5 +9,5 @@ public interface IEmployeeRepository
     Task<IEnumerable<Employee>> GetAllEmployeesAsync();
     Task AddEmployeeAsync(Employee employee);
     Task UpdateEmployeeAsync(Employee employee);
-    public Task<List<Employee>> ListEmployeesByPositionAsync(string position);
+    public Task<List<EmployeeDto>> ListEmployeesByPositionAsync(string position);
 }
