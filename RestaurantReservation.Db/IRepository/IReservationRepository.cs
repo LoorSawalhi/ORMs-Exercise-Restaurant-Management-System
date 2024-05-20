@@ -13,4 +13,5 @@ public interface IReservationRepository
     Task UpdateReservationAsync(Reservation reservation);
     Task<List<OrderDto>> GetOrdersWithMenuItemsByReservationId(int reservationId);
     Task<List<OrderItemDto>> GetMenuItemsByReservationId(int reservationId);
+    Task<List<ReservationsView>> GetReservationsView();
 }

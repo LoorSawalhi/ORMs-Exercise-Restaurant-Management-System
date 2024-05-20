@@ -9,6 +9,7 @@ public class RestaurantReservationDbContext : DbContext
     {
     }
 
+    public DbSet<ReservationsView> ReservationsView { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Employee> Employees { get; set; }
     public DbSet<MenuItem> MenuItems { get; set; }
@@ -21,6 +22,12 @@ public class RestaurantReservationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         SeedData(modelBuilder);
+
+        modelBuilder.Entity<ReservationsView>()
+            .HasNoKey()
+            .ToView(nameof(ReservationsView));
+
+        base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Table>()
             .HasMany(t => t.Reservations)

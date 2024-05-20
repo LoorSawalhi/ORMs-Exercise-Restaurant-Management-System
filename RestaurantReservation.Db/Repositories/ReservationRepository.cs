@@ -89,4 +89,10 @@ public class ReservationRepository : IReservationRepository
                     oi.MenuItem.Description
                 )).ToListAsync();
     }
+
+    public async Task<List<ReservationsView>> GetReservationsView()
+    {
+        return await _context.ReservationsView
+            .ToListAsync();
+    }
 }
