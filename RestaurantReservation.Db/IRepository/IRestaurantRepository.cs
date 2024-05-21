@@ -8,4 +8,5 @@ public interface IRestaurantRepository
     Task<IEnumerable<Restaurant>> GetAllRestaurantsAsync();
     Task AddRestaurantAsync(Restaurant restaurant);
     Task UpdateRestaurantAsync(Restaurant restaurant);
+    decimal CalculateRevenueById(int restaurantId);
 }

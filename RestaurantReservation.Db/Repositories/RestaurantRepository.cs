@@ -35,4 +35,12 @@ public class RestaurantRepository : IRestaurantRepository
         _context.Restaurants.Update(restaurant);
         await _context.SaveChangesAsync();
     }
+
+    public decimal CalculateRevenueById(int restaurantId)
+    {
+        return _context.Restaurants
+            .Where(r => r.Id == restaurantId)
+            .Select(r => _context.TotalRevenueByRestaurantId(restaurantId))
+            .FirstOrDefault();
+    }
 }

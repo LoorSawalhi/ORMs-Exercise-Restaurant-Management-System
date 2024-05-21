@@ -12,6 +12,7 @@ public class RestaurantReservationDbContext : DbContext
     public DbSet<ReservationsView> ReservationsView { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Employee> Employees { get; set; }
+    public DbSet<EmployeesView> EmployeesView { get; set; }
     public DbSet<MenuItem> MenuItems { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
@@ -19,15 +20,25 @@ public class RestaurantReservationDbContext : DbContext
     public DbSet<Restaurant> Restaurants { get; set; }
     public DbSet<Table> Tables { get; set; }
 
+    [DbFunction("TotalRevenueByRestaurantId", "dbo")]
+    public decimal TotalRevenueByRestaurantId(int id)
+    {
+        throw new InvalidOperationException("This method is for use with Entity Framework Core only and has no in-memory implementation.");
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         SeedData(modelBuilder);
+
+        modelBuilder.HasDbFunction(typeof(RestaurantReservationDbContext).GetMethod(nameof(TotalRevenueByRestaurantId)));
 
         modelBuilder.Entity<ReservationsView>()
             .HasNoKey()
             .ToView(nameof(ReservationsView));
 
-        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<EmployeesView>()
+            .HasNoKey()
+            .ToView(nameof(EmployeesView));
 
         modelBuilder.Entity<Table>()
             .HasMany(t => t.Reservations)

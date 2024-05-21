@@ -25,4 +25,8 @@
       <None Remove="appsettings.json" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="ServiceConfiguration.cs" />
+    </ItemGroup>
+
 </Project>

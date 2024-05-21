@@ -28,6 +28,5 @@ namespace RestaurantReservation.Db.Migrations
                 var command = @"DROP VIEW EmployeesView;";
                 migrationBuilder.Sql(command);
             }
-    
     }
 }
