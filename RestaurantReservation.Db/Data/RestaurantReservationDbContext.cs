@@ -23,7 +23,8 @@ public class RestaurantReservationDbContext : DbContext
     [DbFunction("TotalRevenueByRestaurantId", "dbo")]
     public decimal TotalRevenueByRestaurantId(int id)
     {
-        throw new InvalidOperationException("This method is for use with Entity Framework Core only and has no in-memory implementation.");
+        throw new InvalidOperationException(
+            "This method is for use with Entity Framework Core only and has no in-memory implementation.");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
