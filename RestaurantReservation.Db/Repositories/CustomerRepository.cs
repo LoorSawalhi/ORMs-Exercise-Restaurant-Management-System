@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db.Data;
 using RestaurantReservation.Db.IRepository;
 using RestaurantReservation.Db.Models;
+using RestaurantReservation.Db.ModelsDto;
 
 namespace RestaurantReservation.Db.Repositories;
 
@@ -34,5 +35,11 @@ public class CustomerRepository : ICustomerRepository
     {
         _context.Customers.Update(customer);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<List<CustomerDto>> CustomersByPartySize(int partySize)
+    {
+        return await _context.Database.SqlQueryRaw<CustomerDto>("FindCustomersByMinimumPartySize @p0", parameters: partySize)
+            .ToListAsync();
     }
 }
