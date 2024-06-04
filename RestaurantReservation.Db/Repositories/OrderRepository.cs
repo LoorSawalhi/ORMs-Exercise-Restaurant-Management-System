@@ -29,7 +29,14 @@ public class OrderRepository : IOrderRepository
         await _context.Orders.AddAsync(order);
         await _context.SaveChangesAsync();
     }
-
+    
+    public async Task DeleteByIdsAsync(IEnumerable<int> ids)
+    {
+        var i =  _context.Orders.Where(o => ids.Contains(o.Id)).AsQueryable();
+        _context.Orders.RemoveRange(i);
+        await _context.SaveChangesAsync();
+    }
+    
     public async Task UpdateOrderAsync(Order order)
     {
         _context.Orders.Update(order);
