@@ -64,7 +64,7 @@ public class ReservationRepository : IReservationRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<List<OrderDto>> GetOrdersWithMenuItemsByReservationId(int reservationId)
+    public async Task<List<OrderDto>>? GetOrdersWithMenuItemsByReservationId(int reservationId)
     {
         return await _context.Reservations
             .Where(r => r.Id == reservationId)
@@ -74,17 +74,6 @@ public class ReservationRepository : IReservationRepository
             .SelectMany(r => r.Orders)
             .Select(o => _orderDtoMapper.Map(o))
             .ToListAsync();
-        // .Select(o => new OrderDto(
-        //     o.Id,
-        //     o.OrderDate,
-        //     o.TotalAmount,
-        //     o.EmployeeId,
-        //     o.Items.Select(oi => new OrderItemDto(
-        //         oi.Quantity,
-        //         oi.MenuItem.Name,
-        //         oi.MenuItem.Description
-        //         )).ToList()
-        //     )).ToListAsync();
     }
 
     public async Task<List<OrderItemDto>> GetMenuItemsByReservationId(int reservationId)
@@ -96,6 +85,7 @@ public class ReservationRepository : IReservationRepository
             .ThenInclude(i => i.MenuItem)
             .SelectMany(r => r.Orders)
             .SelectMany(o => o.Items)
+            .OrderBy(o => o.MenuItem.Name)
             .Select(o => _orderItemMapper.MapFromDbToDomain(o))
             .ToListAsync();
     }

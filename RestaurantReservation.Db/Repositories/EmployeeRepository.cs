@@ -28,7 +28,7 @@ public class EmployeeRepository : IEmployeeRepository
         return employees;
     }
 
-    public async Task<decimal> CalculateAverageOrderAmount(int employeeId)
+    public async Task<decimal>? CalculateAverageOrderAmount(int employeeId)
     {
         return await _context.Employees
             .Where(e => e.Id == employeeId)
