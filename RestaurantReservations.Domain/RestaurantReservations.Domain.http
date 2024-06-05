@@ -1,0 +1,6 @@
+@RestaurantReservations.Domain_HostAddress = http://localhost:5289
+
+GET {{RestaurantReservations.Domain_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
