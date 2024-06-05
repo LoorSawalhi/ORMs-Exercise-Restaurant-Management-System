@@ -1,5 +1,4 @@
-﻿using RestaurantReservation.Db.ModelsDto;
-using RestaurantsReservations.Domain.Models;
+﻿using RestaurantsReservations.Domain.Models;
 using Order = RestaurantReservation.Db.Models.Order;
 using OrderItem = RestaurantReservation.Db.Models.OrderItem;
 

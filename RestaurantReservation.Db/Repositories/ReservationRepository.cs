@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db.Data;
 using RestaurantReservation.Db.Mappers;
-using RestaurantReservation.Db.ModelsDto;
 using RestaurantsReservations.Domain.IRepository;
 using RestaurantsReservations.Domain.Models;
 
