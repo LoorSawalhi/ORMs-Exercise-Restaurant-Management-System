@@ -18,12 +18,12 @@ public class EmployeeRepository : IEmployeeRepository
         _employeesViewMapper = employeesView;
     }
 
-    public Task<List<Employee>> ListEmployeesByPositionAsync(string position)
+    public async Task<IEnumerable<Employee>> ListEmployeesByPositionAsync(string position)
     {
         var employees = _context.Employees
-            .Select( c => _employeeMapper.MapFromDbToDomain(c))
             .Where(m => m.Position.Equals(position))
-            .ToListAsync();
+            .Select(c => _employeeMapper.MapFromDbToDomain(c));
+            
     
         return employees;
     }
@@ -45,7 +45,7 @@ public class EmployeeRepository : IEmployeeRepository
                  .ToListAsync();
     }
 
-    public async Task<Employee> GetEmployeeByIdAsync(int id)
+    public async Task<Employee>? GetEmployeeByIdAsync(int id)
     {
         var employee =  await _context.Employees
             .FirstOrDefaultAsync(e => e.Id == id);
