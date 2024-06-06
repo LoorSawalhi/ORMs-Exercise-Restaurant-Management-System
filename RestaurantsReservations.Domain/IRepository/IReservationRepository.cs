@@ -1,17 +1,17 @@
-using RestaurantReservation.Db.Models;
-using RestaurantReservation.Db.ModelsDto;
+using Microsoft.AspNetCore.Mvc;
+using RestaurantsReservations.Domain.Models;
 
-namespace RestaurantReservation.Db.IRepository;
+namespace RestaurantsReservations.Domain.IRepository;
 
 public interface IReservationRepository
 {
     Task<Reservation> GetReservationByIdAsync(int id);
     Task<List<Reservation>> GetAllReservationsAsync();
-    Task<List<ReservationDto>> GetAllReservationsByCustomerIdAsync(int customerId);
+    Task<List<Reservation>> GetAllReservationsByCustomerIdAsync(int customerId);
 
     Task AddReservationAsync(Reservation reservation);
     Task UpdateReservationAsync(Reservation reservation);
-    Task<List<OrderDto>> GetOrdersWithMenuItemsByReservationId(int reservationId);
+    Task<List<OrderDto>>? GetOrdersWithMenuItemsByReservationId(int reservationId);
     Task<List<OrderItemDto>> GetMenuItemsByReservationId(int reservationId);
     Task<List<ReservationsView>> GetReservationsView();
 }

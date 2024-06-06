@@ -1,15 +1,14 @@
-using RestaurantReservation.Db.Models;
-using RestaurantReservation.Db.ModelsDto;
+using RestaurantsReservations.Domain.Models;
 
-namespace RestaurantReservation.Db.IRepository;
+namespace RestaurantsReservations.Domain.IRepository;
 
 public interface IEmployeeRepository
 {
-    Task<Employee> GetEmployeeByIdAsync(int id);
+    Task<Employee>? GetEmployeeByIdAsync(int id);
     Task<IEnumerable<Employee>> GetAllEmployeesAsync();
     Task AddEmployeeAsync(Employee employee);
     Task UpdateEmployeeAsync(Employee employee);
-    Task<List<EmployeeDto>> ListEmployeesByPositionAsync(string position);
-    Task<decimal> CalculateAverageOrderAmount(int employeeId);
+    Task<IEnumerable<Employee>> ListEmployeesByPositionAsync(string position);
+    Task<decimal>? CalculateAverageOrderAmount(int employeeId);
     Task<List<EmployeesView>> GetEmployeesDetailedData();
 }

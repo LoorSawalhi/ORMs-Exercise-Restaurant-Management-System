@@ -1,15 +1,25 @@
+using FluentValidation;
+using RestaurantReservation.API;
+using RestaurantsReservations.Domain.Validators;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Apply the database configuration
+builder.Services.AddDatabaseConfiguration(builder.Configuration);
+
+builder.Services.AddBusinessServices()
+    .AddRepositories()
+    .AddMappers()
+    .AddValidators();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddValidators();
+builder.Services.AddValidatorsFromAssemblyContaining<CustomerValidator>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

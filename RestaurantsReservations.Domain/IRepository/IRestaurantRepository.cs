@@ -1,6 +1,6 @@
-using RestaurantReservation.Db.Models;
+using RestaurantsReservations.Domain.Models;
 
-namespace RestaurantReservation.Db.IRepository;
+namespace RestaurantsReservations.Domain.IRepository;
 
 public interface IRestaurantRepository
 {

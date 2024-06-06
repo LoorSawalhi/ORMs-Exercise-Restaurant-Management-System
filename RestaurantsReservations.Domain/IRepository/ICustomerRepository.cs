@@ -1,7 +1,6 @@
-using RestaurantReservation.Db.Models;
-using RestaurantReservation.Db.ModelsDto;
+using RestaurantsReservations.Domain.Models;
 
-namespace RestaurantReservation.Db.IRepository;
+namespace RestaurantsReservations.Domain.IRepository;
 
 public interface ICustomerRepository
 {
@@ -9,5 +8,5 @@ public interface ICustomerRepository
     Task<IEnumerable<Customer>> GetAllCustomersAsync();
     Task AddCustomerAsync(Customer customer);
     Task UpdateCustomerAsync(Customer customer);
-    Task<List<CustomerDto>> CustomersByPartySize(int partySize);
+    Task<List<Customer>> CustomersByPartySize(int partySize);
 }
