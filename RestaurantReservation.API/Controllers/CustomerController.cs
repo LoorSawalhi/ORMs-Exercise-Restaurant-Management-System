@@ -7,7 +7,7 @@ using RestaurantsReservations.Domain.Models;
 namespace RestaurantReservation.API.Controllers;
 
 [ApiController]
-// [Authorize]
+[Authorize]
 [Route("customers")]
 public class CustomerController : ControllerBase
 {
