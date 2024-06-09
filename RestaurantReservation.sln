@@ -1,8 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantReservation", "RestaurantReservation\RestaurantReservation.csproj", "{00200615-9C76-43E0-82F3-927B6F28124C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantReservation.Db", "RestaurantReservation.Db\RestaurantReservation.Db.csproj", "{30448805-8CE5-440F-B4E1-A2B9ED8AFB9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantReservation.API", "RestaurantReservation.API\RestaurantReservation.API.csproj", "{EF581ABB-5CC7-4527-81E8-553725AACDB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantsReservations.Domain", "RestaurantsReservations.Domain\RestaurantsReservations.Domain.csproj", "{9ECF209B-CDD6-4921-B7C6-03879CA8D059}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -10,13 +12,17 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{00200615-9C76-43E0-82F3-927B6F28124C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00200615-9C76-43E0-82F3-927B6F28124C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00200615-9C76-43E0-82F3-927B6F28124C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00200615-9C76-43E0-82F3-927B6F28124C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{30448805-8CE5-440F-B4E1-A2B9ED8AFB9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{30448805-8CE5-440F-B4E1-A2B9ED8AFB9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30448805-8CE5-440F-B4E1-A2B9ED8AFB9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30448805-8CE5-440F-B4E1-A2B9ED8AFB9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF581ABB-5CC7-4527-81E8-553725AACDB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF581ABB-5CC7-4527-81E8-553725AACDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF581ABB-5CC7-4527-81E8-553725AACDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF581ABB-5CC7-4527-81E8-553725AACDB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ECF209B-CDD6-4921-B7C6-03879CA8D059}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ECF209B-CDD6-4921-B7C6-03879CA8D059}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ECF209B-CDD6-4921-B7C6-03879CA8D059}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ECF209B-CDD6-4921-B7C6-03879CA8D059}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
