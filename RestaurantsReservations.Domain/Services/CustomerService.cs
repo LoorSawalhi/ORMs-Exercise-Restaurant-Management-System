@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
 using RestaurantsReservations.Domain.IRepository;
 using RestaurantsReservations.Domain.IServices;
 using RestaurantsReservations.Domain.Models;
@@ -17,7 +16,7 @@ public class CustomerService : ICustomerService
         _validator = validator;
     }
 
-    public Task<Customer>? GetCustomerById(string id)
+    public Task<Customer?>? GetCustomerById(string id)
     {
         return !int.TryParse(id, out var customerId) ? null : _customerRepository.GetCustomerByIdAsync(customerId);
     }
@@ -30,6 +29,19 @@ public class CustomerService : ICustomerService
     public async Task AddCustomer(Customer customer)
     {
         await _validator.ValidateAndThrowAsync(customer);
-        await _customerRepository.AddCustomerAsync(customer);
+        var customerInDb = await _customerRepository.GetCustomerByEmailAsync(customer.Email);
+        if(customerInDb == null)
+            await _customerRepository.AddCustomerAsync(customer);
+        
+        //add smth to clarify that customer already exists
+    }
+    
+    public async Task UpdateCustomerAsync(string customerId, Customer customer)
+    {
+        if (int.TryParse(customerId, out var id))
+        {
+            _customerRepository.UpdateCustomerState(id, customer);
+            await _customerRepository.SaveChangesAsync();
+        }
     }
 }

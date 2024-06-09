@@ -1,10 +1,14 @@
+using System.Reflection;
 using FluentValidation;
 using RestaurantReservation.API;
 using RestaurantsReservations.Domain.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Apply the database configuration
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
+
 builder.Services.AddDatabaseConfiguration(builder.Configuration);
 
 builder.Services.AddBusinessServices()
@@ -12,9 +16,18 @@ builder.Services.AddBusinessServices()
     .AddMappers()
     .AddValidators();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddNewtonsoftJson();
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(setupAction =>
+{
+    var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+    setupAction.IncludeXmlComments(xmlCommentsFullPath);
+    // bin\Release\RestaurantReservation.API.xml
+});
+
 builder.Services.AddValidators();
 builder.Services.AddValidatorsFromAssemblyContaining<CustomerValidator>();
 
@@ -25,8 +38,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

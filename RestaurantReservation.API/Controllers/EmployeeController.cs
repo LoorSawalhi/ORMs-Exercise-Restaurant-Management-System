@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestaurantReservation.Db.Models;
 using RestaurantsReservations.Domain.IServices;
+using RestaurantsReservations.Domain.Models;
 
 namespace RestaurantReservation.API.Controllers;
 

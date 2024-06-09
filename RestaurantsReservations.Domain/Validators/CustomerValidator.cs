@@ -19,6 +19,6 @@ public class CustomerValidator : AbstractValidator<Customer>
         RuleFor(customer => customer.Email)
             .NotEmpty()
             .NotNull()
-            .Matches("[a-zA-Z0-9]+\\.[a-zA-Z0-9]+@[a-z]\\.com");
+            .Matches(@"[a-zA-Z0-9]+\.[a-zA-Z0-9]+@[a-z]\.com");
     }
 }
