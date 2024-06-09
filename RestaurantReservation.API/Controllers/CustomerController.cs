@@ -51,10 +51,7 @@ public class CustomerController : ControllerBase
 
         if (customer != null) return Ok(customer);
         
-        _logger.LogError($"Customer with id {id} does not exists!", new
-        {
-            Class = "asd"
-        } );
+        _logger.LogError($"Customer with id {id} does not exists!");
         return NotFound();
 
     }
@@ -110,7 +107,7 @@ public class CustomerController : ControllerBase
 
         if (customer == null)
         {
-            _logger.LogError("Customer not found...");
+            _logger.LogError($"Customer with id = {customerId} not found...");
             return NotFound();
         }
 
@@ -119,18 +116,18 @@ public class CustomerController : ControllerBase
 
         if (!ModelState.IsValid)
         {
-            _logger.LogError("Customer is not updated!");
+            _logger.LogError($"Customer with id = {customerId} is not updated!");
             return BadRequest(ModelState);
         }
 
         if (!TryValidateModel(customer))
         {
-            _logger.LogError("Updated values is not valid ...");
+            _logger.LogError($"Customer with id = {customerId} values are not valid ...");
             return BadRequest(ModelState);
         }
 
         await _customerService.UpdateCustomerAsync(customerId, customer);
-        _logger.LogInformation("Updated Successfully...");
+        _logger.LogInformation($"Customer with id = {customerId} updated Successfully...");
 
         return NoContent();
     }
