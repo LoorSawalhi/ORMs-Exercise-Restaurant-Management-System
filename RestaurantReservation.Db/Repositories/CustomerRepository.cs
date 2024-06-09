@@ -17,10 +17,18 @@ public class CustomerRepository : ICustomerRepository
         _customerMapper = customerMapper;
     }
 
-    public async Task<Customer> GetCustomerByIdAsync(int id)
+    public async Task<Customer?> GetCustomerByIdAsync(int id)
     {
         var customer =  await _context.Customers.FindAsync(id);
-        return _customerMapper.MapFromDbToDomain(customer);
+        return customer == null ? null : _customerMapper.MapFromDbToDomain(customer);
+    }
+
+    public async Task<Customer?> GetCustomerByEmailAsync(string email)
+    {
+        var customer = await _context.Customers
+            .Where(c => c.Email.Equals(email))
+            .FirstOrDefaultAsync();
+        return customer == null ? null : _customerMapper.MapFromDbToDomain(customer);
     }
 
     public async Task<IEnumerable<Customer>> GetAllCustomersAsync()
@@ -47,5 +55,23 @@ public class CustomerRepository : ICustomerRepository
     {
         return await _context.Database.SqlQueryRaw<Customer>("FindCustomersByMinimumPartySize @p0", parameters: partySize)
             .ToListAsync();
+    }
+    
+    public async void UpdateCustomerState(int customerId, Customer customer)
+    {
+        var customerDb = await _context.Customers.FindAsync(customerId);
+        var mappedCustomer = _customerMapper.MapFromDomainToDb(customer);
+    
+        mappedCustomer.Id = customerDb.Id;
+
+        _context.Entry(customerDb).CurrentValues.SetValues(mappedCustomer);
+        _context.Entry(customerDb).State = EntityState.Modified;
+        
+    }
+
+
+    public async Task SaveChangesAsync()
+    {
+        await _context.SaveChangesAsync();
     }
 }
