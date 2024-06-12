@@ -7,7 +7,8 @@ using RestaurantsReservations.Domain.Models;
 namespace RestaurantReservation.API.Controllers;
 
 [ApiController]
-[Route("employees")]
+[Route("api/v{version:apiVersion}/employees")]
+[ApiVersion("2")]
 public class EmployeeController: ControllerBase
 {
     private readonly IEmployeesServices _employeesServices;

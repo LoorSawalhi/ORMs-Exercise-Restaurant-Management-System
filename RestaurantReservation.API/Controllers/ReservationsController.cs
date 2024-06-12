@@ -5,7 +5,8 @@ using RestaurantsReservations.Domain.Models;
 namespace RestaurantReservation.API.Controllers;
 
 [ApiController]
-[Route("reservations")]
+[Route("api/v{version:apiVersion}/reservations")]
+[ApiVersion("1")]
 public class ReservationsController : ControllerBase
 {
     private readonly IReservationsService _reservationsService;
